@@ -21,6 +21,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build /Reference.Api/Reference.Api.csproj
+      run: dotnet build ./Reference.Api/Reference.Api.csproj
     - name: Test
-      run: dotnet test /Reference.Api.Test/Reference.Api.Test.csproj
+      run: dotnet test ./Reference.Api.Test/Reference.Api.Test.csproj
