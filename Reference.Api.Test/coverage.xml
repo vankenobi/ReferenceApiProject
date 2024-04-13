@@ -2,9 +2,9 @@
 <CoverageSession>
   <Summary numSequencePoints="404" visitedSequencePoints="86" numBranchPoints="30" visitedBranchPoints="7" sequenceCoverage="21.28" branchCoverage="23.33" maxCyclomaticComplexity="79" minCyclomaticComplexity="79" visitedClasses="13" numClasses="33" visitedMethods="29" numMethods="61" />
   <Modules>
-    <Module hash="B4655211-A470-4E61-B21B-98D11D53FE57">
+    <Module hash="B7EDE382-CCBC-412C-84FD-0560D4E42FC8">
       <ModulePath>Reference.Api.dll</ModulePath>
-      <ModuleTime>2024-04-13T02:25:22</ModuleTime>
+      <ModuleTime>2024-04-13T02:39:55</ModuleTime>
       <ModuleName>Reference.Api</ModuleName>
       <Files>
         <File uid="1" fullPath="/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api/Program.cs" />
