@@ -1,0 +1,9 @@
+
+t/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/obj/Debug/net8.0/Reference.Api.Test.AssemblyInfo.csutf-8å
+Ä/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8Å
+v/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/obj/Debug/net8.0/Reference.Api.Test.GlobalUsings.g.csutf-8
+t/Users/musakucuk/.nuget/packages/microsoft.net.test.sdk/17.6.0/build/netcoreapp3.1/Microsoft.NET.Test.Sdk.Program.csutf-8Y
+P/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/GlobalUsings.csutf-8e
+\/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserBaseValidatorFixture.csutf-8_
+V/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.csutf-8g
+^/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UpdateUserValidatorFixture.csutf-8

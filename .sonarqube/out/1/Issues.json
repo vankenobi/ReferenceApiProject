@@ -1,0 +1,269 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.8.0.0",
+        "fileVersion": "4.8.0-3.23524.11 (f43cd10b)",
+        "semanticVersion": "4.8.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 98,
+                  "endLine": 118,
+                  "endColumn": 108
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 164,
+                  "startColumn": 98,
+                  "endLine": 164,
+                  "endColumn": 108
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_mockUnitOfWork' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 31,
+                  "endLine": 17,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 31,
+                  "endLine": 17,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_mockMapper' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 27,
+                  "endLine": 18,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 27,
+                  "endLine": 18,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_mockLogger' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 41,
+                  "endLine": 19,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 41,
+                  "endLine": 19,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_userService' must contain a non-null value when exiting constructor. Consider declaring the field as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 25,
+                  "endLine": 20,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 25,
+                  "endLine": 20,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "NUnit2045",
+          "level": "note",
+          "message": "Call independent Assert statements from inside an Assert.Multiple",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///Users/musakucuk/Projects/ReferenceApiProject/Reference.Api.Test/UserServiceFixture.cs",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 9,
+                  "endLine": 108,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CS8600": {
+          "id": "CS8600",
+          "shortDescription": "Converting null literal or possible null value to non-nullable type.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8600)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "NUnit2045": {
+          "id": "NUnit2045",
+          "shortDescription": "Use Assert.Multiple",
+          "fullDescription": "Hosting Asserts inside an Assert.Multiple allows detecting more than one failure.",
+          "defaultLevel": "note",
+          "helpUri": "https://github.com/nunit/nunit.analyzers/tree/master/documentation/NUnit2045.md",
+          "properties": {
+            "category": "Assertion",
+            "isEnabledByDefault": true
+          }
+        }
+      }
+    }
+  ]
+}

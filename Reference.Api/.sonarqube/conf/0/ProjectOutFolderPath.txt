@@ -1,0 +1,1 @@
+/Users/musakucuk/Projects/ReferenceApiProject/Reference.Api/.sonarqube/out/0

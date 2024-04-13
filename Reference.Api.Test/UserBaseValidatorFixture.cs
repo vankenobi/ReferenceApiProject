@@ -26,7 +26,7 @@ namespace Reference.Api.Test
 
             var result = _createUserValidator.Validate(createUserRequest);
 
-            Assert.IsFalse(result.IsValid);
+            Assert.That(result.IsValid, Is.False);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Reference.Api.Test
 
             var result = _createUserValidator.Validate(createUserRequest);
 
-            Assert.IsFalse(result.IsValid);
+            Assert.That(result.IsValid, Is.False);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Reference.Api.Test
 
             var result = _createUserValidator.Validate(createUserRequest);
 
-            Assert.IsFalse(result.IsValid);
+            Assert.That(result.IsValid, Is.False);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Reference.Api.Test
 
             var result = _createUserValidator.Validate(createUserRequest);
 
-            Assert.IsFalse(result.IsValid);
+            Assert.That(result.IsValid, Is.False);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace Reference.Api.Test
 
             var result = _createUserValidator.Validate(createUserRequest);
 
-            Assert.IsFalse(result.IsValid);
+            Assert.That(result.IsValid, Is.False);
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace Reference.Api.Test
 
             var result = _createUserValidator.Validate(createUserRequest);
 
-            Assert.IsFalse(result.IsValid);
+            Assert.That(result.IsValid, Is.False);
         }
     }
 }

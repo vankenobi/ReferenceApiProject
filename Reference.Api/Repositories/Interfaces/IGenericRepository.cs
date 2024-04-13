@@ -8,7 +8,7 @@ namespace Reference.Api.Repositories.Interfaces
     {
         Task<IEnumerable<T>> All(); // Task is a type that represents an asynchronous operation that can return a value
 
-        Task<T> GetById(Guid id);
+        Task<T?> GetById(Guid id);
 
         Task<bool> Add(T entity);
 

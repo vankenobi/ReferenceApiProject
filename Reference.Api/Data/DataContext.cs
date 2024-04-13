@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Reference.Api.Models;
 
 namespace Reference.Api.Data
@@ -8,7 +9,8 @@ namespace Reference.Api.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
+            Database.Migrate();
         }
 
         public DbSet<User> Users { get; set; }

@@ -5,11 +5,11 @@ using Reference.Api.Repositories.Interfaces;
 
 namespace Reference.Api.Repositories.Implementations
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public sealed class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly DataContext _context;
         public readonly ILogger _logger;
-        private Dictionary<Type, object> _repositories;
+        private readonly Dictionary<Type, object> _repositories;
 
         public UnitOfWork(DataContext context, ILoggerFactory logger)
         {
@@ -43,6 +43,7 @@ namespace Reference.Api.Repositories.Implementations
         public void Dispose()
         {
             _context.Dispose();
+            GC.SuppressFinalize(this);
         }
 
     }

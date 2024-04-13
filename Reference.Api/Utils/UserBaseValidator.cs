@@ -6,7 +6,7 @@ namespace Reference.Api.Utils
 {
 	public abstract class UserBaseValidator<T> : AbstractValidator<T> where T: ICommonProperties
     {
-		public UserBaseValidator()
+		protected UserBaseValidator()
 		{
             RuleFor(x => x)
            .NotNull();

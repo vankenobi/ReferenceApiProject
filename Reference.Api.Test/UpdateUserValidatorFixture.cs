@@ -27,7 +27,7 @@ namespace Reference.Api.Test
 
             var result = _updateUserValidator.Validate(updateUserRequest);
 
-            Assert.IsFalse(result.IsValid);  
+            Assert.That(result.IsValid, Is.False);  
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace Reference.Api.Test
 
             var result = _updateUserValidator.Validate(updateUserRequest);
 
-            Assert.IsTrue(result.IsValid);
+            Assert.That(result.IsValid, Is.True);
         }
 	}
 }

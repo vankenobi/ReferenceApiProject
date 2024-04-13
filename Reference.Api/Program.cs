@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Reference.Api.Data;
@@ -41,7 +42,6 @@ builder.Services.ConfigureMapping();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure the FluentValidation
 builder.Services.AddFluentValidation(config =>
     config.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 

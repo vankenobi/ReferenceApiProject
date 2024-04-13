@@ -9,11 +9,9 @@ namespace Reference.Api.Repositories.Implementations
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        protected DataContext _context;
-        protected DbSet<T> dbSet;
-        public ILogger _logger;
-
-        public GenericRepository() { }
+        private readonly DataContext _context;
+        private readonly DbSet<T> dbSet;
+        private readonly ILogger _logger;
 
         // constructor will take the context and logger factory as parameters
         public GenericRepository(
@@ -25,6 +23,8 @@ namespace Reference.Api.Repositories.Implementations
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             dbSet = _context.Set<T>();
         }
+
+        public GenericRepository() { }
 
         public virtual async Task<IEnumerable<T>> All() // virtual means that this method can be overriden by a class that inherits from this class
         {
