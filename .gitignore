@@ -1,3 +1,6 @@
+# custom settings
+SonarScanner.ps1
+
 # globs
 Makefile.in
 *.userprefs
