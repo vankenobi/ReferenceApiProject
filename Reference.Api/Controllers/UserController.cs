@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reference.Api.Dtos.Requests;
 using Reference.Api.Models;
@@ -22,6 +23,7 @@ namespace Reference.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetUserById(Guid id)
         {
             try
@@ -42,6 +44,7 @@ namespace Reference.Api.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateUser(CreateUserRequest createUserRequest)
         {
             try
@@ -60,6 +63,7 @@ namespace Reference.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             try
@@ -77,6 +81,7 @@ namespace Reference.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(UpdateUserRequest updateUserRequest)
         {
             var result = await _userService.UpdateUser(updateUserRequest);

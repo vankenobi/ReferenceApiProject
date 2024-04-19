@@ -28,6 +28,18 @@ namespace Reference.Api.Repositories.Implementations
             // Rollback changes if needed
         }
 
+        public IUserRepository GetUserRepository()
+        {
+            if (_repositories.ContainsKey(typeof(User)))
+            {
+                return (IUserRepository)_repositories[typeof(User)];
+            }
+
+            var repository = new UserRepository(_context, _logger);
+            _repositories.Add(typeof(User), repository);
+            return repository;
+        }
+
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
         {
             if (_repositories.ContainsKey(typeof(TEntity)))

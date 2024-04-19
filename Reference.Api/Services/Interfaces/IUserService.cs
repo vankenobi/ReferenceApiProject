@@ -8,7 +8,7 @@ namespace Reference.Api.Services.Interfaces
 	public interface IUserService
 	{
 		Task<GetUserResponse> GetUserById(Guid id);
-		Task<Guid> CreateUser(CreateUserRequest createUserRequest);
+        Task<Guid> CreateUser(CreateUserRequest createUserRequest);
         Task<bool> UpdateUser(UpdateUserRequest updateUserRequest);
         Task<bool> DeleteUser(Guid id);
         
