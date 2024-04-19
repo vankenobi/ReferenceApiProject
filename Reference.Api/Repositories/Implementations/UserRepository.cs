@@ -10,18 +10,16 @@ namespace Reference.Api.Repositories.Implementations
     {
 
         private readonly DbSet<User> dbSet;
-        private readonly DataContext _context;
         private readonly ILogger _logger;
 
         public UserRepository()
         {
         }
 
-        public UserRepository(DataContext context, ILogger logger)
+        public UserRepository(DataContext context, ILogger logger) : base(context,logger)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            dbSet = _context.Set<User>();
+            dbSet = context.Set<User>();
         }
 
         public async Task<User?> GetUserByEmail(string email)
