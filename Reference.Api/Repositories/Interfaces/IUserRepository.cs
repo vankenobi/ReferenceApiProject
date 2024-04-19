@@ -6,7 +6,7 @@ namespace Reference.Api.Repositories.Interfaces
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> GetUserByEmail(string email);
+        Task<User?> GetUserByEmail(string email);
     }
 }
 

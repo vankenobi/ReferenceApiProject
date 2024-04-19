@@ -16,6 +16,7 @@ namespace Reference.Api.Services.Implementations
         private readonly ILogger<IAuthService> _logger;
         private readonly IJwtProvider _jwtProvider;
 
+
 		public AuthService(IUnitOfWork unitOfWork,
             ILogger<IAuthService> logger,
             IJwtProvider jwtProvider)
@@ -34,7 +35,7 @@ namespace Reference.Api.Services.Implementations
                 if (user == null)
                 {
                     _logger.LogError("Invalid user to login");
-                    throw new Exception("Invalid user to login");
+                    throw new ArgumentNullException($"Invalid user to login {user}");
                 }
 
                 var token = _jwtProvider.Generate(user);
@@ -44,9 +45,8 @@ namespace Reference.Api.Services.Implementations
             catch (Exception ex)
             {
                 _logger.LogError("Error while login user: {ex}",ex);
-                throw new Exception("Error while login user: {ex}", ex);
+                throw;
             }
-          
         }
     }
 }
