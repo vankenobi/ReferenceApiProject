@@ -27,10 +27,3 @@ jobs:
           dotnet-version: '8.0.x'
       - name: Test
         run: dotnet test ./Reference.Api.Test/Reference.Api.Test.csproj
-
-  update-readme:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add badge to README
-        run: echo "<img alt='Build passing' src='https://img.shields.io/badge/Build-passing-brightgreen'>" >> ./README.md
