@@ -33,4 +33,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add badge to README
-        run: echo "<img alt='Build passing' src='https://img.shields.io/badge/Build-passing-brightgreen'>" >> README.md
+        run: echo "<img alt='Build passing' src='https://img.shields.io/badge/Build-passing-brightgreen'>" >> ./README.md
