@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test
-        run: dotnet test ./Reference.Api.Test/Reference.Api.Test.csproj
+        run: dotnet test /Reference.Api.Test/Reference.Api.Test.csproj
 
   update-readme:
     needs: build
