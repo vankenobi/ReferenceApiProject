@@ -9,9 +9,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -22,12 +20,18 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build ./Reference.Api/Reference.Api.csproj
-    - name: Test
-      run: dotnet test ./Reference.Api.Test/Reference.Api.Test.csproj
-
+    
+      
+  Test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: dotnet test ./Reference.Api.Test/Reference.Api.Test.csproj
+        
   update-readme:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Add badge to README
-        run: echo "<img alt='Build passing' src='https://img.shields.io/badge/Build-passing-brightgreen'>" >> README.md
+        run: echo "<img alt='Build passing' src='https://img.shields.io/badge/Build-passing-brightgreen'>" >> ./README.md
