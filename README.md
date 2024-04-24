@@ -1,4 +1,4 @@
-![example workflow](https://github.com/vankenobi/ReferenceApiProject/actions/workflows/dotnet.yml/badge.svg)
+![example workflow](https://github.com/vankenobi/ReferenceApiProject/actions/workflows/build.yml/badge.svg)
 
 ## Reference API Project
 This project is a reference API project designed with a clean architecture. It includes mappers, JWT token, PostgreSQL as the database, and SonarQube for code analysis. The Unit of Work design, repository pattern and FluentValidation are utilized.
