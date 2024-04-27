@@ -4,6 +4,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Reference.Api.Cache;
 using Reference.Api.Data;
 using Reference.Api.Extensions;
 using Reference.Api.Repositories.Implementations;
@@ -31,12 +32,19 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddControllers();
 
+// Redis Configuration
+builder.Services.AddStackExchangeRedisCache(action =>
+{
+    action.Configuration = builder.Configuration.GetConnectionString("redis");
+});
+
 // Register services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+builder.Services.AddScoped<ICacheService, CacheService>();
 
 // Configure the health check
 builder.Services.AddHealthChecks();
