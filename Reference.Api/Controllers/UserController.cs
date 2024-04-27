@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Bogus;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reference.Api.Dtos.Requests;
@@ -47,19 +49,36 @@ namespace Reference.Api.Controllers
         [Authorize]
         public async Task<IActionResult> CreateUser(CreateUserRequest createUserRequest)
         {
-            try
-            {
-                var createdUserId = await _userService.CreateUser(createUserRequest);
-                var userUri = Url.Action("GetUserById", new { id = createdUserId });
 
-                return StatusCode(201, userUri);
-            }
-            catch (Exception ex)
+            // Bogus kütüphanesini kullanarak rastgele veri oluştur
+            var faker = new Faker<CreateUserRequest>()
+                .RuleFor(u => u.Name, f => f.Name.FirstName())
+                .RuleFor(u => u.Surname, f => f.Name.LastName())
+                .RuleFor(u => u.Password, f => f.Internet.Password(8))
+                .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name.ToLower(), u.Surname.ToLower()));
+
+            // 10 adet rastgele kullanıcı oluştur
+            List<CreateUserRequest> users = faker.Generate(500);
+
+            foreach (var user in users)
             {
-                _logger.LogError(ex, "An error occurred while creating the user");
-                return StatusCode(500, "An error occurred while creating the user. Please try again later.");
+                await _userService.CreateUser(user);
             }
-            
+            return StatusCode(201);
+
+            //try
+            //{
+            //    var createdUserId = await _userService.CreateUser(createUserRequest);
+            //    var userUri = Url.Action("GetUserById", new { id = createdUserId });
+
+            //    return StatusCode(201, userUri);
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError(ex, "An error occurred while creating the user");
+            //    return StatusCode(500, "An error occurred while creating the user. Please try again later.");
+            //}
+
         }
 
         [HttpDelete("{id}")]

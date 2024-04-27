@@ -5,6 +5,9 @@ This project is a reference API project designed with a clean architecture. It i
 
 ### Folder Structure
     ├── Reference.Api
+    │ ├── Cache
+    │ │ ├── CacheService.cs
+    │ │ └── ICacheService.cs
     │ ├── Controllers
     │ │ ├── AuthController.cs
     │ │ └── UserController.cs
