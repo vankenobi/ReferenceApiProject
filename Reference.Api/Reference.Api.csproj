@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>563eb35e-ebe4-414c-8252-fc289a6940dd</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
@@ -28,6 +29,8 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Bogus" Version="35.5.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +47,7 @@
     <None Remove="Services\Interfaces\" />
     <None Remove="Services\Implementations\" />
     <None Remove="Security\" />
+    <None Remove="MiddleWare\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -59,5 +63,6 @@
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Security\" />
+    <Folder Include="MiddleWare\" />
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace Reference.Api.Services.Implementations
         public async Task<GetUserResponse> GetUserById(Guid id)
         {
             var cachedItem = await _cacheService.Get<User>(id.ToString());
-
+            _logger.LogInformation("Getuserbyid in userservice");
             GetUserResponse? response;
             if (cachedItem != null)
             {

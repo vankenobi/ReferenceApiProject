@@ -7,16 +7,20 @@ using Microsoft.OpenApi.Models;
 using Reference.Api.Cache;
 using Reference.Api.Data;
 using Reference.Api.Extensions;
+using Reference.Api.MiddleWare;
 using Reference.Api.Repositories.Implementations;
 using Reference.Api.Repositories.Interfaces;
 using Reference.Api.Security;
 using Reference.Api.Services.Implementations;
 using Reference.Api.Services.Interfaces;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure the logging mechanism
-builder.Services.AddLogging();
+//Serilog Configuration
+builder.Host.UseSerilog((context,loggerConfig) => {
+    loggerConfig.ReadFrom.Configuration(context.Configuration);
+});
 
 // Use environment variable files by environment
 builder.Configuration
@@ -54,7 +58,7 @@ builder.Services.ConfigureMapping();
 
 //Security
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer();
+        .AddJwtBearer();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
@@ -101,6 +105,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Middleware
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseSerilogRequestLogging();
 
 app.UseCustomHealthCheck();
 
