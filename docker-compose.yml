@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  reference.api:
+    image: ${DOCKER_REGISTRY-}reference
+    build:
+      context: .
+      dockerfile: Reference.Api/Dockerfile

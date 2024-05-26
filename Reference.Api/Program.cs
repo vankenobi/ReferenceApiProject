@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Consul;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -17,54 +18,91 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Serilog Configuration
-builder.Host.UseSerilog((context,loggerConfig) => {
+#region Serilog Configuration
+
+builder.Host.UseSerilog((context, loggerConfig) => {
     loggerConfig.ReadFrom.Configuration(context.Configuration);
 });
 
-// Use environment variable files by environment
+#endregion
+
+#region Use environment variable file by environment
+
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-// Set Db connection string in appsetting file
-var connectionString = builder.Configuration.GetConnectionString("postgresql");
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(connectionString!));
+#endregion
 
-builder.Services.AddControllers();
+#region Redis Configuration
 
-// Redis Configuration
 builder.Services.AddStackExchangeRedisCache(action =>
 {
     action.Configuration = builder.Configuration.GetConnectionString("redis");
 });
 
-// Register services
+#endregion
+
+#region Consul Configuration
+
+var address = new Uri(builder.Configuration["Consul:Host"]);
+builder.Services.AddSingleton<IConsulClient, ConsulClient>(consul => new ConsulClient(consulConfig =>
+{
+    consulConfig.Address = address;
+}, null, handlerOverride =>
+{
+    handlerOverride.Proxy = null;
+    handlerOverride.UseProxy = false;
+}));
+
+#endregion
+
+#region Set DB connection
+
+var connectionString = builder.Configuration.GetConnectionString("postgresql");
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseNpgsql(connectionString!));
+
+#endregion
+
+#region Register Services
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
-// Configure the health check
+#endregion
+
+#region Configure the health check
+
 builder.Services.AddHealthChecks();
 
-// Configure the AutoMapper
+#endregion
+
+#region Configure the AutoMapper
+
 builder.Services.ConfigureMapping();
 
-//Security
+#endregion
+
+#region Security
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-builder.Services.AddEndpointsApiExplorer();
+#endregion
 
-//Swagger Configuration
+#region Swagger Configuration
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reference API", Version = "v1" });
@@ -94,20 +132,41 @@ builder.Services.AddSwaggerGen(c =>
     });
 }).AddAuthentication();
 
+#endregion
+
+#region Fluent Validation
+
 builder.Services.AddFluentValidation(config =>
     config.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
+#endregion
+
 var app = builder.Build();
+
+// Consul Configuration
+ConfigureConsulExtension.ServiceRegistration(builder.Configuration, app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+}
+
+if (app.Environment.IsEnvironment("Docker"))
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 }
 
 //Middleware
 app.UseMiddleware<CorrelationIdMiddleware>();
+
+//Use Cors
+app.UseCors("AllowOrigin");
+
 app.UseSerilogRequestLogging();
 
 app.UseCustomHealthCheck();

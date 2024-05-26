@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Bogus;
+using Consul;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reference.Api.Dtos.Requests;
@@ -18,10 +19,52 @@ namespace Reference.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly ILogger<UserController> _logger;
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        private readonly IConsulClient _consulClient;
+
+        public UserController(IUserService userService, ILogger<UserController> logger, IConsulClient consulClient)
         {
             _userService = userService;
             _logger = logger;
+            _consulClient = consulClient;
+        }
+
+        [HttpGet("GetConfiguration")]
+        public async Task<string> GetConfiguration()
+        {
+      
+            var str = string.Empty;
+
+            //query the value
+            var res = await _consulClient.KV.Get("ReferenceApiProject/Deneme");
+
+            if (res.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                //convert byte[] to string
+                str = System.Text.Encoding.UTF8.GetString(res.Response.Value);
+            }
+
+            return str;
+         
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateUsersWithBogus()
+        {
+            // Bogus kütüphanesini kullanarak rastgele veri oluştur
+            var faker = new Faker<CreateUserRequest>()
+                .RuleFor(u => u.Name, f => f.Name.FirstName())
+                .RuleFor(u => u.Surname, f => f.Name.LastName())
+                .RuleFor(u => u.Password, f => f.Internet.Password(8))
+                .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name.ToLower(), u.Surname.ToLower()));
+
+            // 10 adet rastgele kullanıcı oluştur
+            List<CreateUserRequest> users = faker.Generate(1000);
+
+            foreach (var user in users)
+            {
+                await _userService.CreateUser(user);
+            }
+            return StatusCode(201);
         }
 
         [HttpGet("{id}")]
