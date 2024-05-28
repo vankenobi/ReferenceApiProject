@@ -1,8 +1,64 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  reference.api:
-    image: ${DOCKER_REGISTRY-}reference
-    build:
-      context: .
-      dockerfile: Reference.Api/Dockerfile
+  app:
+    image: musakucuk99/referenceapi:1.0.0
+    container_name: app
+    ports:
+      - "8081:8080"
+      - "8082:443"
+    depends_on:
+      - postgres
+      - seq
+      - redis
+      - consul
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker  
+
+  postgres:
+    image: postgres:13
+    container_name: database
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgresql_reference_api:/var/lib/postgresql
+      - postgresql_reference_api_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  seq:
+    image: datalust/seq
+    container_name: log
+    ports:
+      - "5341:80"
+    environment:
+      ACCEPT_EULA: Y
+    volumes:
+      - seq_data:/data
+
+  redis:
+    image: redis
+    container_name: cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  consul:
+    image: consul:1.15.4
+    container_name: consul
+    ports:
+      - "8500:8500"
+    volumes:
+      - consul-data:/consul/data
+
+
+volumes:
+  postgresql_reference_api:
+  postgresql_reference_api_data:
+  seq_data:
+  redis-data:
+  consul-data:

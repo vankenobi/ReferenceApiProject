@@ -105,7 +105,9 @@ builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reference API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Reference API",
+        Version = "v1",
+        Description = "Use these credentials to login:<br><b>Email:</b> stefan_turner38@yahoo.com<br><b>Password:</b> QTKL8Opd" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

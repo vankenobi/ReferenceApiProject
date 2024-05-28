@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		SonarScanner.ps1 = SonarScanner.ps1
 		Dockerfile = Dockerfile
+		init.sql = init.sql
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B77D45A7-7D34-42C5-B034-9C7A9B95B223}"

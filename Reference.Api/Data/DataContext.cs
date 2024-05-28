@@ -7,11 +7,14 @@ namespace Reference.Api.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        public DataContext()
         {
             Database.EnsureCreated();
             Database.Migrate();
         }
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {}
 
         public DbSet<User> Users { get; set; }
 
