@@ -3,6 +3,30 @@
 ## Reference API Project
 This project is a reference API project designed with a clean architecture. It includes mappers, JWT token, PostgreSQL as the database, and SonarQube for code analysis. The Unit of Work design, repository pattern and FluentValidation are utilized.
 
+## How can you run the project ?
+
+#### Open Terminal and Navigate to Project Directory
+First, open your terminal or command prompt and navigate to your project directory:
+```sh
+cd /path/to/your/ReferenceApiProject
+```
+
+#### Run Docker Compose Command
+Ensure that you are in the project folder and run the following command to start the project:
+```sh
+docker-compose up -d
+```
+#### Verify Project Start
+Verify Project Start
+After running the command, verify that your project has started successfully. You can do this by accessing your project in a web browser. Navigate to http://localhost:8081/swagger/index to check if your project is running properly. Additionally, you can also check the logs of your containers for further verification.
+
+#### Stopping the Project
+To stop the project and remove the Docker containers, run the following command:
+```sh
+docker-compose down
+```
+
+
 ## What technologies consist of this project ? 
 
 This project was developed using technologies such as:
