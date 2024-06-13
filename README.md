@@ -42,6 +42,8 @@ This project was developed using technologies such as:
 - [Redis](https://redis.io/) (For cache)
 - [Consul](https://www.consul.io/) (For service registration)
 - [Middleware](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware?view=aspnetcore-5.0)
+- [Change Tracker(interceptor methods)]()
+- [ElasticSearch and Kibana](https://www.elastic.co/elastic-stack) (for logging)
   
 ### Folder Structure
     ├── Reference.Api
