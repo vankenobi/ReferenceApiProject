@@ -55,6 +55,32 @@ services:
     volumes:
       - consul-data:/consul/data
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    container_name: elasticsearch
+    environment:
+        - discovery.type=single-node
+        - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+        memlock:
+            soft: -1
+            hard: -1
+    volumes:
+        - esdata:/usr/share/elasticsearch/data
+    ports:
+        - "9200:9200"
+        - "9300:9300"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.14.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
 
 volumes:
   postgresql_reference_api:
@@ -62,3 +88,5 @@ volumes:
   seq_data:
   redis-data:
   consul-data:
+  esdata:
+    driver: local

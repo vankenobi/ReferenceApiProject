@@ -27,7 +27,7 @@ builder.Host.UseSerilog((context, loggerConfig) => {
     loggerConfig.ReadFrom.Configuration(context.Configuration);
     loggerConfig.WriteTo.Console(theme: SystemConsoleTheme.Literate);
     loggerConfig.Enrich.WithProperty("Environment", environment);
-    loggerConfig.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+    loggerConfig.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration.GetConnectionString("elastic")))
     {   
         AutoRegisterTemplate = true,
         OverwriteTemplate = true,
