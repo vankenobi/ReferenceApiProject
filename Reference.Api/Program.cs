@@ -10,18 +10,36 @@ using Reference.Api.Data;
 using Reference.Api.Extensions;
 using Reference.Api.MiddleWare;
 using Reference.Api.Repositories.Implementations;
-using Reference.Api.Repositories.Interfaces;
+using Reference.Api.Repositories.Interfaces;    
 using Reference.Api.Security;
 using Reference.Api.Services.Implementations;
 using Reference.Api.Services.Interfaces;
 using Serilog;
+using Serilog.Sinks.Elasticsearch;
+using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Serilog Configuration
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
 builder.Host.UseSerilog((context, loggerConfig) => {
     loggerConfig.ReadFrom.Configuration(context.Configuration);
+    loggerConfig.WriteTo.Console(theme: SystemConsoleTheme.Literate);
+    loggerConfig.Enrich.WithProperty("Environment", environment);
+    loggerConfig.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+    {   
+        AutoRegisterTemplate = true,
+        OverwriteTemplate = true,
+        DetectElasticsearchVersion = true,
+        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
+        NumberOfReplicas = 1,
+        NumberOfShards = 2,
+        EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
+                                   EmitEventFailureHandling.WriteToFailureSink |
+                                   EmitEventFailureHandling.RaiseCallback,
+        FailureSink = new Serilog.Sinks.File.FileSink("./fail.txt", new Serilog.Formatting.Json.JsonFormatter(), null, null)
+    });
 });
 
 #endregion

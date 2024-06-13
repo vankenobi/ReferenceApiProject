@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: musakucuk99/referenceapi:1.0.0
+    image: musakucuk99/referenceapi:1.1
     container_name: app
     ports:
       - "8081:8080"

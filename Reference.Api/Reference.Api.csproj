@@ -35,6 +35,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="Consul" Version="1.7.14.3" />
     <PackageReference Include="Winton.Extensions.Configuration.Consul" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +53,7 @@
     <None Remove="Services\Implementations\" />
     <None Remove="Security\" />
     <None Remove="MiddleWare\" />
+    <None Remove="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -68,5 +70,6 @@
     <Folder Include="Services\Implementations\" />
     <Folder Include="Security\" />
     <Folder Include="MiddleWare\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>

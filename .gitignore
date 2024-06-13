@@ -1,6 +1,7 @@
 # custom settings
 SonarScanner.ps1
 .sonarqube
+./Reference.Api/fail.txt
 
 # globs
 Makefile.in

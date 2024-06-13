@@ -27,25 +27,25 @@ namespace Reference.Api.Controllers
         }
 
         #region Fake data generator
-        [HttpGet]
-        public async Task<IActionResult> CreateUsersWithBogus()
-        {
-            // Bogus kütüphanesini kullanarak rastgele veri oluştur
-            var faker = new Faker<CreateUserRequest>()
-                .RuleFor(u => u.Name, f => f.Name.FirstName())
-                .RuleFor(u => u.Surname, f => f.Name.LastName())
-                .RuleFor(u => u.Password, f => f.Internet.Password(8))
-                .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name.ToLower(), u.Surname.ToLower()));
+        //[HttpGet]
+        //public async Task<IActionResult> CreateUsersWithBogus()
+        //{
+        //    // Bogus kütüphanesini kullanarak rastgele veri oluştur
+        //    var faker = new Faker<CreateUserRequest>()
+        //        .RuleFor(u => u.Name, f => f.Name.FirstName())
+        //        .RuleFor(u => u.Surname, f => f.Name.LastName())
+        //        .RuleFor(u => u.Password, f => f.Internet.Password(8))
+        //        .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Name.ToLower(), u.Surname.ToLower()));
 
-            // 10 adet rastgele kullanıcı oluştur
-            List<CreateUserRequest> users = faker.Generate(1000);
+        //    // 10 adet rastgele kullanıcı oluştur
+        //    List<CreateUserRequest> users = faker.Generate(1000);
 
-            foreach (var user in users)
-            {
-                await _userService.CreateUser(user);
-            }
-            return StatusCode(201);
-        }
+        //    foreach (var user in users)
+        //    {
+        //        await _userService.CreateUser(user);
+        //    }
+        //    return StatusCode(201);
+        //}
         #endregion
 
         [HttpGet("{id}")]
