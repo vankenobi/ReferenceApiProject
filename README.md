@@ -32,7 +32,7 @@ docker-compose down
 This project was developed using technologies such as:
 
 - [FluentValidation](https://fluentvalidation.net/)
-- [JWT](https://jwt.io/) 
+- [JWT](https://jwt.io/) (Role-based access control)
 - AutoMapper
 - UnitOfWork
 - [Repository Pattern](https://martinfowler.com/eaaCatalog/repository.html)
@@ -63,6 +63,8 @@ This project was developed using technologies such as:
     │ │ │ └── UpdateUserRequest.cs
     │ │ └── Responses
     │ │ └── GetUserResponse.cs
+    │ ├── Enums
+    │ │ ├── UserRole.cs
     │ ├── Extensions
     │ │ ├── ConfigureMappingProfileExtension.cs
     │ │ ├── HealthCheckConfigureExtension.cs
@@ -70,6 +72,9 @@ This project was developed using technologies such as:
     │ │ └── JwtOptionsSetup.cs
     │ ├── Mapper
     │ │ └── AutoMapperMappingProfile.cs
+    │ ├── MiddleWare
+    │ │ └── CorrelationIdMiddleware.cs
+    │ ├── Migrations
     │ ├── Models
     │ │ ├── BaseEntity.cs
     │ │ └── User.cs
@@ -85,14 +90,15 @@ This project was developed using technologies such as:
     │ │ └── IUserRepository.cs
     │ ├── Security
     │ │ ├── IJwtProvider.cs
+    │ │ ├── JwtProvider.cs
     │ │ └── JwtOptions.cs
     │ ├── Services
     │ │ ├── Implementations
     │ │ │ ├── AuthService.cs
     │ │ │ └── UserService.cs
     │ │ └── Interfaces
-    │ │ ├── IAuthService.cs
-    │ │ └── IUserService.cs
+    │ │   ├── IAuthService.cs
+    │ │   └── IUserService.cs
     │ └── Utils
     │ ├── CreateUserValidator.cs
     │ ├── UpdateUserValidator.cs
