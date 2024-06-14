@@ -9,6 +9,7 @@ using Reference.Api.Cache;
 using Reference.Api.Data;
 using Reference.Api.Extensions;
 using Reference.Api.MiddleWare;
+using Reference.Api.Models;
 using Reference.Api.Repositories.Implementations;
 using Reference.Api.Repositories.Interfaces;    
 using Reference.Api.Security;
@@ -158,6 +159,18 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddFluentValidation(config =>
     config.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+
+#endregion
+
+#region AuthorizationPolicies
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("1"));
+    options.AddPolicy("UserPolicy", policy => policy.RequireRole("2"));
+    options.AddPolicy("ManagerPolicy", policy => policy.RequireRole("3"));
+    options.AddPolicy("GuestPolicy", policy => policy.RequireRole("4"));
+});
 
 #endregion
 

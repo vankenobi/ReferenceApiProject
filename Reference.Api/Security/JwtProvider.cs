@@ -20,11 +20,13 @@ namespace Reference.Api.Security
         {
             var expirationDate = DateTime.UtcNow.AddHours(1);
 
-            var claims = new Claim[]
+            var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new(JwtRegisteredClaimNames.Email, user.Email)
+                new(JwtRegisteredClaimNames.Email, user.Email),
             };
+
+            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.ToString())));
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_options.SecretKey)),
