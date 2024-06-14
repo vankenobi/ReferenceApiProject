@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Reference.Api.Dtos.Requests;
 
 namespace Reference.Api.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> All(); // Task is a type that represents an asynchronous operation that can return a value
+        IQueryable<T> All();
 
         Task<T?> GetById(Guid id);
 
@@ -19,7 +20,9 @@ namespace Reference.Api.Repositories.Interfaces
         IQueryable<T> GetEntities(Expression<Func<T, bool>> predicate);
 
         Task<bool> Any(Guid id);
-       
+
+        //Task<(IEnumerable<T> items, int totalCount)> GetPaged(PaginationParameters paginationParameters);
+
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Reference.Api.Cache;
 using Reference.Api.Dtos.Requests;
 using Reference.Api.Dtos.Responses;
@@ -103,6 +104,20 @@ namespace Reference.Api.Services.Implementations
 
                 return result;
             }
+        }
+
+        public async Task<List<GetUserResponse>> GetAllUsers(PaginationParameters paginationParameters)
+        {
+            _logger.LogInformation("GetAllUsers in userservice");
+        
+            var users = await _unitOfWork.GetRepository<User>().All()
+                                  .Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize)
+                                  .Take(paginationParameters.PageSize)
+                                  .ToListAsync();
+
+            var response = _mapper.Map<List<GetUserResponse>>(users);
+
+            return response;
         }
     }
 }
