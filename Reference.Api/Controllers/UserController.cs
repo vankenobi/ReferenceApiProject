@@ -6,6 +6,7 @@ using Consul;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reference.Api.Dtos.Requests;
+using Reference.Api.Enums;
 using Reference.Api.Models;
 using Reference.Api.Services.Interfaces;
 
@@ -49,7 +50,7 @@ namespace Reference.Api.Controllers
         #endregion
 
         [HttpGet("{id}")]
-        [Authorize]
+        [Authorize(Policy = "UserPolicy")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
             try
@@ -71,7 +72,7 @@ namespace Reference.Api.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> CreateUser(CreateUserRequest createUserRequest)
         {
             try
@@ -91,7 +92,7 @@ namespace Reference.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             try
@@ -112,7 +113,7 @@ namespace Reference.Api.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> UpdateUser(UpdateUserRequest updateUserRequest)
         {
             var result = await _userService.UpdateUser(updateUserRequest);
