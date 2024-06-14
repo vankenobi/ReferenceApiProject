@@ -20,6 +20,13 @@ docker-compose up -d
 Verify Project Start
 After running the command, verify that your project has started successfully. You can do this by accessing your project in a web browser. Navigate to http://localhost:8081/swagger/index to check if your project is running properly. Additionally, you can also check the logs of your containers for further verification.
 
+#### To access the tools that used in this project
+
+* Seq -> http://localhost:5341/
+* Kibana -> http://localhost:5601/app/home#/
+* Consul -> http://localhost:8500/ui/dc1/services
+* Swagger UI -> http://localhost:8081/swagger/index.html
+
 #### Stopping the Project
 To stop the project and remove the Docker containers, run the following command:
 ```sh
