@@ -9,7 +9,6 @@ using Reference.Api.Cache;
 using Reference.Api.Data;
 using Reference.Api.Extensions;
 using Reference.Api.MiddleWare;
-using Reference.Api.Models;
 using Reference.Api.Repositories.Implementations;
 using Reference.Api.Repositories.Interfaces;    
 using Reference.Api.Security;

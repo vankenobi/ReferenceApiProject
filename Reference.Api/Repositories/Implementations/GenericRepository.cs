@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Reference.Api.Data;
+using Reference.Api.Dtos.Requests;
 using Reference.Api.Models;
 using Reference.Api.Repositories.Interfaces;
 
@@ -26,9 +27,9 @@ namespace Reference.Api.Repositories.Implementations
 
         public GenericRepository() { }
 
-        public virtual async Task<IEnumerable<T>> All() // virtual means that this method can be overriden by a class that inherits from this class
+        public virtual IQueryable<T> All()
         {
-            return await dbSet.ToListAsync();
+            return dbSet.AsQueryable();
         }
 
         public virtual async Task<T?> GetById(Guid id)
@@ -43,6 +44,15 @@ namespace Reference.Api.Repositories.Implementations
                 throw;
             }
         }
+
+        //public virtual async Task<(IEnumerable<T> items, int totalCount)> GetPaged(PaginationParameters paginationParameters)
+        //{
+        //    var totalCount = await dbSet.CountAsync();
+        //    var items = await dbSet.Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize)
+        //                            .Take(paginationParameters.PageSize)
+        //                            .ToListAsync();
+        //    return (items, totalCount);
+        //}
 
         public virtual async Task<bool> Add(T entity)
         {

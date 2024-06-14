@@ -11,7 +11,7 @@ namespace Reference.Api.Services.Interfaces
         Task<Guid> CreateUser(CreateUserRequest createUserRequest);
         Task<bool> UpdateUser(UpdateUserRequest updateUserRequest);
         Task<bool> DeleteUser(Guid id);
-        
+        Task<List<GetUserResponse>> GetAllUsers(PaginationParameters paginationParameters);
     }
 }
 

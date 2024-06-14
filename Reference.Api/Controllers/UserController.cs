@@ -49,6 +49,22 @@ namespace Reference.Api.Controllers
         //}
         #endregion
 
+        [HttpGet("/GetAllUsers")]
+        [Authorize(Policy = "UserPolicy")]
+        public async Task<IActionResult> GetAllUsers([FromQuery] PaginationParameters paginationParameters)
+        {
+            try
+            {
+                var items = await _userService.GetAllUsers(paginationParameters);    
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving the users.");
+                return StatusCode(500, "An error occurred, please try again later.");
+            }
+        }
+
         [HttpGet("{id}")]
         [Authorize(Policy = "UserPolicy")]
         public async Task<IActionResult> GetUserById(Guid id)
