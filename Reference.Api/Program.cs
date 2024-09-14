@@ -46,17 +46,6 @@ builder.Services.AddOpenTelemetry()
             .AddPrometheusExporter(); // Prometheus için metrikleri ekle
     });
 
-//builder.Services.AddOpenTelemetry()
-//  .WithMetrics(x =>
-//        x.AddMeter("Microsoft.AspNetCore.Hosting",
-//                  "Microsoft.AspNetCore.Server.Kestrel",
-//                  "System.Net.Http")
-//        .AddPrometheusExporter())
-
-  //.WithTracing(x =>
-  //    x.AddAspNetCoreInstrumentation()
-  //     .AddHttpClientInstrumentation());
-
 
 #region Serilog Configuration
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
