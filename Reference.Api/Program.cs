@@ -5,6 +5,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Reference.Api.Cache;
 using Reference.Api.Data;
 using Reference.Api.Extensions;
@@ -20,6 +23,41 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddOpenTelemetry()
+    .WithTracing(tracerProviderBuilder =>
+    {
+        tracerProviderBuilder
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("MyService"))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddSource("MyCustomSource")
+            .AddConsoleExporter();
+    })
+    .WithMetrics(metricsProviderBuilder =>
+    {
+        metricsProviderBuilder
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("MyService"))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddProcessInstrumentation()
+            .AddPrometheusExporter(); // Prometheus için metrikleri ekle
+    });
+
+//builder.Services.AddOpenTelemetry()
+//  .WithMetrics(x =>
+//        x.AddMeter("Microsoft.AspNetCore.Hosting",
+//                  "Microsoft.AspNetCore.Server.Kestrel",
+//                  "System.Net.Http")
+//        .AddPrometheusExporter())
+
+  //.WithTracing(x =>
+  //    x.AddAspNetCoreInstrumentation()
+  //     .AddHttpClientInstrumentation());
+
+
 #region Serilog Configuration
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
@@ -27,6 +65,8 @@ builder.Host.UseSerilog((context, loggerConfig) => {
     loggerConfig.ReadFrom.Configuration(context.Configuration);
     loggerConfig.WriteTo.Console(theme: SystemConsoleTheme.Literate);
     loggerConfig.Enrich.WithProperty("Environment", environment);
+    var text = builder.Configuration.GetConnectionString("elastic");
+
     loggerConfig.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration.GetConnectionString("elastic")))
     {   
         AutoRegisterTemplate = true,
@@ -174,6 +214,8 @@ builder.Services.AddAuthorization(options =>
 #endregion
 
 var app = builder.Build();
+
+app.UseOpenTelemetryPrometheusScrapingEndpoint(context => context.Request.Path == "/metrics");
 
 // Consul Configuration
 ConfigureConsulExtension.ServiceRegistration(builder.Configuration, app);
