@@ -11,7 +11,6 @@ namespace Reference.Api.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-
         private readonly IAuthService _authService;
 
         public AuthController(IAuthService authService)
@@ -23,7 +22,6 @@ namespace Reference.Api.Controllers
         public async Task<IActionResult> Login(LoginUserRequest loginUserRequest)
         {
             var token = await _authService.Login(loginUserRequest);
-            
             return Ok(token);
         }
     }

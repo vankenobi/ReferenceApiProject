@@ -62,7 +62,6 @@
     <None Remove="Services\Implementations\" />
     <None Remove="Security\" />
     <None Remove="MiddleWare\" />
-    <None Remove="Migrations\" />
     <None Remove="Enums\" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +79,6 @@
     <Folder Include="Services\Implementations\" />
     <Folder Include="Security\" />
     <Folder Include="MiddleWare\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region Open Telemetry - Prometheus Configuration 
 builder.Services.AddOpenTelemetry()
     .WithTracing(tracerProviderBuilder =>
     {
@@ -30,8 +31,7 @@ builder.Services.AddOpenTelemetry()
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("MyService"))
             .AddAspNetCoreInstrumentation()
             .AddHttpClientInstrumentation()
-            .AddSource("MyCustomSource")
-            .AddConsoleExporter();
+            .AddSource("MyCustomSource");
     })
     .WithMetrics(metricsProviderBuilder =>
     {
@@ -43,9 +43,10 @@ builder.Services.AddOpenTelemetry()
             .AddHttpClientInstrumentation()
             .AddRuntimeInstrumentation()
             .AddProcessInstrumentation()
-            .AddPrometheusExporter(); // Prometheus için metrikleri ekle
+            .AddPrometheusExporter();
     });
 
+#endregion
 
 #region Serilog Configuration
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
@@ -204,6 +205,7 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
+// flow the metrics to /metrics path
 app.UseOpenTelemetryPrometheusScrapingEndpoint(context => context.Request.Path == "/metrics");
 
 // Consul Configuration

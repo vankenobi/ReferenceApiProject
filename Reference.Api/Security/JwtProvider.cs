@@ -26,7 +26,7 @@ namespace Reference.Api.Security
                 new(JwtRegisteredClaimNames.Email, user.Email),
             };
 
-            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.ToString())));
+            claims.AddRange(user.UserRoles.Select(role => new Claim(ClaimTypes.Role, role.Role.Id.ToString())));
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_options.SecretKey)),
